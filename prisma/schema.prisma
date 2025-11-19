@@ -10,10 +10,10 @@ datasource db {
 // Пример базовой модели - настройте под ваши нужды
 model User {
   id        String   @id @default(cuid())
+  uniqueID  String   @unique
   email     String   @unique
+  username  String?
   password  String
-  name      String?
-  role      String   @default("user")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
