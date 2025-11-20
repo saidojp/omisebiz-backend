@@ -34,6 +34,15 @@ export const errorHandler = (
       });
       return;
     }
+    if (err.code === "P2021") {
+      res.status(500).json({
+        error: {
+          message:
+            "Model table missing. Run one of:\n  npm run db:migrate   # create/apply migrations\n  npm run db:push      # push schema (dev only)\n  npm run db:generate  # regenerate client after changes",
+        },
+      });
+      return;
+    }
   }
 
   const status = err instanceof AppError ? err.statusCode : 500;

@@ -30,14 +30,12 @@ export const updateProfile = async (
     const userId = ensureAuthenticated(req);
     const payload = validate(updateUserSchema, req.body);
 
-    const data: { username?: string; password?: string } = {};
-
-    if (payload.username !== undefined) {
-      data.username = payload.username;
-    }
-    if (payload.password !== undefined) {
-      data.password = await bcrypt.hash(payload.password, SALT_ROUNDS);
-    }
+    const data = {
+      ...(payload.username !== undefined ? { username: payload.username } : {}),
+      ...(payload.password !== undefined
+        ? { password: await bcrypt.hash(payload.password, SALT_ROUNDS) }
+        : {}),
+    };
 
     if (!Object.keys(data).length) {
       throw new AppError("No changes provided", 400);
@@ -45,7 +43,7 @@ export const updateProfile = async (
 
     const updatedUser = await prisma.user.update({
       where: { id: userId },
-      data,
+      data: data as Prisma.UserUpdateInput,
     });
 
     res.json({ user: sanitizeUser(updatedUser) });
@@ -65,7 +63,7 @@ export const updateUsername = async (
 
     const updatedUser = await prisma.user.update({
       where: { id: userId },
-      data: { username: payload.username },
+      data: { username: payload.username } as Prisma.UserUpdateInput,
     });
 
     res.json({ user: sanitizeUser(updatedUser) });

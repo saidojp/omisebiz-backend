@@ -15,8 +15,11 @@ import { sanitizeUser } from "../utils/user";
 import { Prisma } from "@prisma/client";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
-const JWT_EXPIRES_IN: SignOptions["expiresIn"] =
-  (process.env.JWT_EXPIRES_IN as SignOptions["expiresIn"]) ?? "7d";
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET env variable is required");
+}
+const JWT_EXPIRES_IN = (process.env.JWT_EXPIRES_IN ??
+  "7d") as SignOptions["expiresIn"];
 const SALT_ROUNDS = 10;
 
 const signToken = (userId: string): string =>
@@ -30,7 +33,11 @@ const createUserWithUniqueID = async (
     const uniqueID = await generateUniqueID();
     try {
       return await prisma.user.create({
-        data: { email, password: hashedPassword, uniqueID },
+        data: {
+          email,
+          password: hashedPassword,
+          uniqueID,
+        } as Prisma.UserCreateInput,
       });
     } catch (e: unknown) {
       if (

@@ -1,6 +1,6 @@
-import swaggerJsdoc from "swagger-jsdoc";
+import swaggerJsdoc, { Options } from "swagger-jsdoc";
 
-const swaggerOptions: swaggerJsdoc.Options = {
+const swaggerOptions: Options = {
   definition: {
     openapi: "3.0.3",
     info: {
@@ -16,11 +16,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
     ],
     components: {
       securitySchemes: {
-        bearerAuth: {
-          type: "http",
-          scheme: "bearer",
-          bearerFormat: "JWT",
-        },
+        bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
       },
       schemas: {
         User: {
@@ -46,9 +42,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
             },
           },
         },
-        LoginRequest: {
-          $ref: "#/components/schemas/RegisterRequest",
-        },
+        LoginRequest: { $ref: "#/components/schemas/RegisterRequest" },
         UpdateUserRequest: {
           type: "object",
           properties: {
@@ -59,23 +53,17 @@ const swaggerOptions: swaggerJsdoc.Options = {
         UsernameRequest: {
           type: "object",
           required: ["username"],
-          properties: {
-            username: { type: "string", example: "new_name" },
-          },
+          properties: { username: { type: "string", example: "new_name" } },
         },
         EmailRequest: {
           type: "object",
           required: ["email"],
-          properties: {
-            email: { type: "string", format: "email" },
-          },
+          properties: { email: { type: "string", format: "email" } },
         },
         PasswordRequest: {
           type: "object",
           required: ["password"],
-          properties: {
-            password: { type: "string", pattern: "^\\d{6}$" },
-          },
+          properties: { password: { type: "string", pattern: "^\\d{6}$" } },
         },
         AuthResponse: {
           type: "object",
@@ -86,24 +74,18 @@ const swaggerOptions: swaggerJsdoc.Options = {
         },
         UserResponseBody: {
           type: "object",
-          properties: {
-            user: { $ref: "#/components/schemas/User" },
-          },
+          properties: { user: { $ref: "#/components/schemas/User" } },
         },
         MessageResponse: {
           type: "object",
-          properties: {
-            message: { type: "string" },
-          },
+          properties: { message: { type: "string" } },
         },
         ErrorResponse: {
           type: "object",
           properties: {
             error: {
               type: "object",
-              properties: {
-                message: { type: "string" },
-              },
+              properties: { message: { type: "string" } },
             },
           },
         },
@@ -156,5 +138,4 @@ const swaggerOptions: swaggerJsdoc.Options = {
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
-
 export default swaggerSpec;
