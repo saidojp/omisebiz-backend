@@ -9,6 +9,7 @@ const usernameSchema = z.string().min(1).max(50);
 export const registerSchema = z.object({
   email: z.string().email(),
   password: passwordSchema,
+  username: usernameSchema, // added required username
 });
 
 export const loginSchema = registerSchema;
@@ -18,10 +19,14 @@ export const updateUserSchema = z
     username: usernameSchema.optional(),
     password: passwordSchema.optional(),
   })
-  .refine((payload) => payload.username !== undefined || payload.password !== undefined, {
-    message: "Provide username or password to update",
-    path: ["username"],
-  });
+  .refine(
+    (payload) =>
+      payload.username !== undefined || payload.password !== undefined,
+    {
+      message: "Provide username or password to update",
+      path: ["username"],
+    }
+  );
 
 export const usernameOnlySchema = z.object({
   username: usernameSchema,

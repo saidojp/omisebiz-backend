@@ -27,7 +27,8 @@ const signToken = (userId: string): string =>
 
 const createUserWithUniqueID = async (
   email: string,
-  hashedPassword: string
+  hashedPassword: string,
+  username: string
 ) => {
   for (let attempt = 0; attempt < 5; attempt++) {
     const uniqueID = await generateUniqueID();
@@ -37,6 +38,7 @@ const createUserWithUniqueID = async (
           email,
           password: hashedPassword,
           uniqueID,
+          username, // persist username
         } as Prisma.UserCreateInput,
       });
     } catch (e: unknown) {
@@ -72,8 +74,11 @@ export const register = async (
     }
 
     const hashedPassword = await bcrypt.hash(payload.password, SALT_ROUNDS);
-
-    const user = await createUserWithUniqueID(payload.email, hashedPassword);
+    const user = await createUserWithUniqueID(
+      payload.email,
+      hashedPassword,
+      payload.username
+    );
 
     const token = signToken(user.id);
 

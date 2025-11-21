@@ -32,7 +32,7 @@ const swaggerOptions: Options = {
         },
         RegisterRequest: {
           type: "object",
-          required: ["email", "password"],
+          required: ["email", "password", "username"], // username required
           properties: {
             email: { type: "string", format: "email" },
             password: {
@@ -40,6 +40,7 @@ const swaggerOptions: Options = {
               pattern: "^\\d{6}$",
               example: "123456",
             },
+            username: { type: "string", example: "new_user" }, // added
           },
         },
         LoginRequest: { $ref: "#/components/schemas/RegisterRequest" },
