@@ -21,6 +21,19 @@ const ensureAuthenticated = (req: Request): string => {
   return req.user.id;
 };
 
+const assertUsernameUnique = async (
+  candidate: string,
+  currentUserId: string
+) => {
+  const existing = await prisma.user.findFirst({
+    where: { username: { equals: candidate, mode: "insensitive" } },
+    select: { id: true },
+  });
+  if (existing && existing.id !== currentUserId) {
+    throw new AppError("Username already in use", 409);
+  }
+};
+
 export const updateProfile = async (
   req: Request,
   res: Response,
@@ -29,6 +42,10 @@ export const updateProfile = async (
   try {
     const userId = ensureAuthenticated(req);
     const payload = validate(updateUserSchema, req.body);
+
+    if (payload.username !== undefined) {
+      await assertUsernameUnique(payload.username, userId);
+    }
 
     const data = {
       ...(payload.username !== undefined ? { username: payload.username } : {}),
@@ -60,6 +77,8 @@ export const updateUsername = async (
   try {
     const userId = ensureAuthenticated(req);
     const payload = validate(usernameOnlySchema, req.body);
+
+    await assertUsernameUnique(payload.username, userId);
 
     const updatedUser = await prisma.user.update({
       where: { id: userId },

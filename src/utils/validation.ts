@@ -9,10 +9,13 @@ const usernameSchema = z.string().min(1).max(50);
 export const registerSchema = z.object({
   email: z.string().email(),
   password: passwordSchema,
-  username: usernameSchema, // added required username
+  username: usernameSchema,
 });
 
-export const loginSchema = registerSchema;
+export const loginSchema = z.object({
+  email: z.string().email(),
+  password: passwordSchema,
+}); // decoupled from registerSchema
 
 export const updateUserSchema = z
   .object({

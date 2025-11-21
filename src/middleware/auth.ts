@@ -8,7 +8,11 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET environment variable is required");
 }
 
-export const authenticate = (req: Request, _res: Response, next: NextFunction): void => {
+export const authenticate = (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+): void => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader?.startsWith("Bearer ")) {

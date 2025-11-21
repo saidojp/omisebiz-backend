@@ -25,14 +25,18 @@ const swaggerOptions: Options = {
             id: { type: "string", example: "ckxyz123" },
             uniqueID: { type: "string", example: "#1010" },
             email: { type: "string", format: "email" },
-            username: { type: "string", nullable: true, example: "omise_user" },
+            username: {
+              type: "string",
+              example: "omise_user",
+              description: "Unique username (case-insensitive)",
+            },
             createdAt: { type: "string", format: "date-time" },
             updatedAt: { type: "string", format: "date-time" },
           },
         },
         RegisterRequest: {
           type: "object",
-          required: ["email", "password", "username"], // username required
+          required: ["email", "password", "username"],
           properties: {
             email: { type: "string", format: "email" },
             password: {
@@ -40,21 +44,46 @@ const swaggerOptions: Options = {
               pattern: "^\\d{6}$",
               example: "123456",
             },
-            username: { type: "string", example: "new_user" }, // added
+            username: {
+              type: "string",
+              example: "new_user",
+              description: "Unique username (case-insensitive check)",
+            },
           },
         },
-        LoginRequest: { $ref: "#/components/schemas/RegisterRequest" },
+        LoginRequest: {
+          type: "object",
+          required: ["email", "password"],
+          properties: {
+            email: { type: "string", format: "email" },
+            password: {
+              type: "string",
+              pattern: "^\\d{6}$",
+              example: "123456",
+            },
+          },
+        },
         UpdateUserRequest: {
           type: "object",
           properties: {
-            username: { type: "string", example: "new_name" },
+            username: {
+              type: "string",
+              example: "new_name",
+              description: "New unique username (case-insensitive)",
+            },
             password: { type: "string", pattern: "^\\d{6}$" },
           },
         },
         UsernameRequest: {
           type: "object",
           required: ["username"],
-          properties: { username: { type: "string", example: "new_name" } },
+          properties: {
+            username: {
+              type: "string",
+              example: "new_name",
+              description: "Unique username (case-insensitive)",
+            },
+          },
         },
         EmailRequest: {
           type: "object",

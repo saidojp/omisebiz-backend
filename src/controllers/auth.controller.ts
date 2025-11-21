@@ -64,13 +64,22 @@ export const register = async (
   try {
     const payload: RegisterInput = validate(registerSchema, req.body);
 
-    const existingUser = await prisma.user.findFirst({
-      where: { email: { equals: payload.email, mode: "insensitive" } },
-      select: { id: true },
-    });
+    const [existingEmail, existingUsername] = await Promise.all([
+      prisma.user.findFirst({
+        where: { email: { equals: payload.email, mode: "insensitive" } },
+        select: { id: true },
+      }),
+      prisma.user.findFirst({
+        where: { username: { equals: payload.username, mode: "insensitive" } },
+        select: { id: true },
+      }),
+    ]);
 
-    if (existingUser) {
+    if (existingEmail) {
       throw new AppError("Email already in use", 409);
+    }
+    if (existingUsername) {
+      throw new AppError("Username already in use", 409);
     }
 
     const hashedPassword = await bcrypt.hash(payload.password, SALT_ROUNDS);
