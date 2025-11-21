@@ -21,6 +21,14 @@ const swaggerOptions: Options = {
       schemas: {
         User: {
           type: "object",
+          required: [
+            "id",
+            "uniqueID",
+            "email",
+            "username",
+            "createdAt",
+            "updatedAt",
+          ],
           properties: {
             id: { type: "string", example: "ckxyz123" },
             uniqueID: { type: "string", example: "#1010" },
@@ -28,7 +36,8 @@ const swaggerOptions: Options = {
             username: {
               type: "string",
               example: "omise_user",
-              description: "Unique username (case-insensitive)",
+              description:
+                "Unique username (case-insensitive, globally unique)",
             },
             createdAt: { type: "string", format: "date-time" },
             updatedAt: { type: "string", format: "date-time" },
