@@ -43,6 +43,12 @@ export const errorHandler = (
       });
       return;
     }
+    if (err.code === "P2003") {
+      res.status(400).json({
+        error: { message: "Related record not found (Foreign Key Constraint)" },
+      });
+      return;
+    }
   }
 
   const status = err instanceof AppError ? err.statusCode : 500;
