@@ -16,4 +16,40 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  restaurants Restaurant[]
+}
+
+model Restaurant {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String?
+  category    String?
+  
+  // Contact Info
+  contacts    Json?    // { phone, email, website }
+  address     Json?    // { street, city, zip, country }
+  location    Json?    // { lat, lng }
+  
+  // Operations
+  hours       Json?    // { monday: { isOpen, open, close }, ... }
+  priceRange  String?  // $, $$, $$$, $$$$
+  
+  // Details
+  attributes  Json?    // { wifi, parking, etc }
+  media       Json?    // { logo, cover, gallery: [] }
+  socials     Json?    // { instagram, facebook, etc }
+  
+  // Meta
+  isPublished Boolean  @default(false)
+  
+  // Relations
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([isPublished])
 }
