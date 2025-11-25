@@ -83,31 +83,101 @@ const swaggerOptions: Options = {
           type: "object",
           required: ["name"],
           properties: {
-            name: { type: "string" },
-            description: { type: "string" },
-            category: { type: "string" },
-            contacts: { type: "object" },
-            address: { type: "object" },
-            hours: { type: "object" },
-            priceRange: { type: "string" },
-            attributes: { type: "object" },
-            media: { type: "object" },
-            socials: { type: "object" },
+            name: { type: "string", example: "My Restaurant" },
+            description: { type: "string", example: "A wonderful place to eat" },
+            category: { type: "string", example: "Japanese" },
+            contacts: {
+              type: "object",
+              properties: {
+                phone: { type: "string", example: "+81-3-1234-5678" },
+                email: { type: "string", format: "email", example: "info@restaurant.com" },
+                website: { type: "string", format: "uri", example: "https://restaurant.com" },
+              },
+            },
+            address: {
+              type: "object",
+              properties: {
+                street: { type: "string", example: "1-2-3 Shibuya" },
+                city: { type: "string", example: "Tokyo" },
+                zip: { type: "string", example: "150-0002" },
+                country: { type: "string", example: "Japan" },
+              },
+            },
+            hours: {
+              type: "object",
+              example: {
+                monday: { isOpen: true, open: "09:00", close: "22:00" },
+                tuesday: { isOpen: false },
+              },
+            },
+            priceRange: {
+              type: "string",
+              enum: ["$", "$$", "$$$", "$$$$"],
+              description: "Price range: $ (cheap), $$ (moderate), $$$ (expensive), $$$$ (very expensive)",
+              example: "$$",
+            },
+            attributes: {
+              type: "object",
+              example: { hasWifi: true, hasParking: true },
+            },
+            media: {
+              type: "object",
+              example: { logo: "https://example.com/logo.jpg" },
+            },
+            socials: {
+              type: "object",
+              example: { instagram: "https://instagram.com/restaurant" },
+            },
           },
         },
         UpdateRestaurantRequest: {
           type: "object",
           properties: {
-            name: { type: "string" },
-            description: { type: "string" },
-            category: { type: "string" },
-            contacts: { type: "object" },
-            address: { type: "object" },
-            hours: { type: "object" },
-            priceRange: { type: "string" },
-            attributes: { type: "object" },
-            media: { type: "object" },
-            socials: { type: "object" },
+            name: { type: "string", example: "Updated Restaurant Name" },
+            description: { type: "string", example: "Updated description" },
+            category: { type: "string", example: "Italian" },
+            contacts: {
+              type: "object",
+              properties: {
+                phone: { type: "string", example: "+81-3-1234-5678" },
+                email: { type: "string", format: "email", example: "info@restaurant.com" },
+                website: { type: "string", format: "uri", example: "https://restaurant.com" },
+              },
+            },
+            address: {
+              type: "object",
+              properties: {
+                street: { type: "string", example: "1-2-3 Shibuya" },
+                city: { type: "string", example: "Tokyo" },
+                zip: { type: "string", example: "150-0002" },
+                country: { type: "string", example: "Japan" },
+              },
+            },
+            hours: {
+              type: "object",
+              example: {
+                monday: { isOpen: true, open: "09:00", close: "22:00" },
+                tuesday: { isOpen: false },
+              },
+            },
+            priceRange: {
+              type: "string",
+              enum: ["$", "$$", "$$$", "$$$$"],
+              description: "Price range: $ (cheap), $$ (moderate), $$$ (expensive), $$$$ (very expensive)",
+              example: "$$",
+            },
+            attributes: {
+              type: "object",
+              example: { hasWifi: true, hasParking: true },
+            },
+            media: {
+              type: "object",
+              example: { logo: "https://example.com/logo.jpg" },
+            },
+            socials: {
+              type: "object",
+              example: { instagram: "https://instagram.com/restaurant" },
+            },
           },
         },
         RestaurantResponse: {
