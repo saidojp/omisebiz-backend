@@ -565,7 +565,7 @@ DELETE /api/upload/:filename     \# Удаление изображения
 
 * \[ \] Backend: API для загрузки изображений  
 * \[ \] Backend: обработка и оптимизация изображений  
-* \[ \] Backend: хранение (S3/Cloudinary)  
+* \[ \] Backend: хранение (Cloudflare R2)  
 * \[ \] Frontend: компонент загрузки файлов  
 * \[ \] Frontend: drag & drop функционал  
 * \[ \] Frontend: preview загруженных фото  

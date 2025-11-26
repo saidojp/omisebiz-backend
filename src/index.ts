@@ -5,6 +5,7 @@ import swaggerUi from "swagger-ui-express";
 import authRouter from "./routes/auth.routes";
 import userRouter from "./routes/user.routes";
 import restaurantRouter from "./routes/restaurant.routes";
+import uploadRouter from "./routes/upload.routes";
 import { errorHandler } from "./middleware/errorHandler";
 import swaggerSpec from "./swagger";
 import { prisma } from "./prisma";
@@ -28,6 +29,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/restaurants", restaurantRouter);
+app.use("/api/upload", uploadRouter);
 
 app.get("/health", async (_req: Request, res: Response) => {
   try {
