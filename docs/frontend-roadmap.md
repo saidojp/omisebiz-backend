@@ -1,7 +1,7 @@
 # Frontend Development Roadmap
 
 **Project:** OmiseBiz - Restaurant Management Platform  
-**Tech Stack:** Next.js 14+ (App Router), TypeScript, Tailwind CSS, shadcn/ui  
+**Tech Stack:** Next.js 14+ (App Router), TypeScript, Tailwind CSS, Material UI (MUI)  
 **Backend API:** http://localhost:4000
 
 ---
@@ -16,8 +16,8 @@ This roadmap covers the complete frontend development for the restaurant managem
 
 - **Next.js 14+** - App Router for modern React with RSC, optimized for SEO
 - **TypeScript** - Type safety across the application
-- **Tailwind CSS** - Utility-first styling for rapid development
-- **shadcn/ui** - High-quality, customizable components based on Radix UI
+- **Tailwind CSS** - Utility-first styling alongside MUI
+- **Material UI (MUI)** - Production-ready React components with Material Design
 - **React Hook Form** - Performant forms with validation
 - **Zod** - Schema validation matching backend
 - **Axios** - HTTP client for API calls
@@ -32,9 +32,10 @@ This roadmap covers the complete frontend development for the restaurant managem
   ```bash
   npx create-next-app@latest omisebiz-frontend --typescript --tailwind --app
   ```
-- [ ] Install shadcn/ui and configure
+- [ ] Install Material UI and configure
   ```bash
-  npx shadcn-ui@latest init
+  npm install @mui/material @emotion/react @emotion/styled
+  npm install @mui/icons-material
   ```
 - [ ] Setup project structure
   ```
@@ -43,7 +44,7 @@ This roadmap covers the complete frontend development for the restaurant managem
     /(dashboard)    # Protected admin pages
     /r/[slug]       # Public restaurant pages
   /components
-    /ui             # shadcn components
+    /ui             # Custom UI components
     /forms          # Form components
     /restaurant     # Restaurant-specific
     /layout         # Layout components
@@ -58,13 +59,10 @@ This roadmap covers the complete frontend development for the restaurant managem
   ```bash
   npm install axios zustand react-hook-form @hookform/resolvers zod
   npm install date-fns clsx tailwind-merge
-  npm install lucide-react  # Icons
   ```
-- [ ] Install shadcn/ui components
-  ```bash
-  npx shadcn-ui@latest add button input form card dialog textarea select
-  npx shadcn-ui@latest add dropdown-menu avatar badge tabs switch
-  ```
+- [ ] Configure MUI theme
+  - Create `theme.ts` with custom colors and typography
+  - Wrap app with `ThemeProvider` in root layout
 
 ### Configuration
 - [ ] Setup environment variables (`.env.local`)
@@ -88,14 +86,13 @@ This roadmap covers the complete frontend development for the restaurant managem
 
 ### Components
 - [ ] **LoginForm**
-  - Email input (validation)
-  - Password input (6 digits)
-  - Submit button with loading state
-  - Error handling
+  - MUI `TextField` for email and password
+  - MUI `Button` with loading state (`CircularProgress`)
+  - MUI `Alert` for error handling
 - [ ] **RegisterForm**
-  - Email, username, password fields
+  - MUI `TextField` components
   - Client-side validation with Zod
-  - Success/error messages
+  - MUI `Snackbar` for success/error messages
 
 ### API Integration
 - [ ] `POST /auth/register`
@@ -117,12 +114,12 @@ This roadmap covers the complete frontend development for the restaurant managem
 
 ### Layout
 - [ ] **DashboardLayout**
-  - Sidebar navigation
+  - MUI `Drawer` for sidebar navigation
     - Logo
-    - Menu items (Restaurants, Settings)
-    - User avatar + dropdown
-  - Mobile responsive (hamburger menu)
-  - Header with breadcrumbs
+    - MUI `List` with `ListItem` for menu
+    - MUI `Avatar` + `Menu` for user dropdown
+  - Mobile responsive (MUI `AppBar` + hamburger)
+  - MUI `Breadcrumbs` in header
 
 ### Navigation
 - [ ] `/dashboard` - Dashboard home (redirect to `/dashboard/restaurants`)
@@ -132,10 +129,10 @@ This roadmap covers the complete frontend development for the restaurant managem
 - [ ] `/dashboard/settings` - User settings
 
 ### Components
-- [ ] **Sidebar**
-- [ ] **Header**
-- [ ] **UserMenu** (avatar + dropdown)
-- [ ] **MobileNav**
+- [ ] **Sidebar** (MUI `Drawer`)
+- [ ] **Header** (MUI `AppBar`)
+- [ ] **UserMenu** (MUI `Avatar` + `Menu`)
+- [ ] **MobileNav** (MUI responsive `Drawer`)
 
 ---
 
@@ -143,22 +140,22 @@ This roadmap covers the complete frontend development for the restaurant managem
 
 ### Restaurant List Page
 - [ ] **GET /restaurants** integration
-- [ ] Restaurant cards grid
-  - Cover image
-  - Name, category, address
-  - Published/Draft badge
-  - Quick actions (Edit, View, Delete)
-- [ ] Empty state (no restaurants)
-- [ ] Loading skeletons
-- [ ] Search/filter functionality
+- [ ] MUI `Grid` layout with `Card` components
+  - MUI `CardMedia` for cover image
+  - MUI `CardContent` for name, category, address
+  - MUI `Chip` for Published/Draft badge
+  - MUI `IconButton` for quick actions
+- [ ] Empty state with MUI `Box` and `Typography`
+- [ ] MUI `Skeleton` components for loading
+- [ ] MUI `TextField` with `InputAdornment` for search
 
 ### Components
-- [ ] **RestaurantCard**
-  - Preview image
-  - Status badge
-  - Action buttons
-- [ ] **EmptyState**
-- [ ] **DeleteConfirmDialog**
+- [ ] **RestaurantCard** (MUI `Card`)
+  - MUI `CardMedia` for image
+  - MUI `Chip` for status
+  - MUI `IconButton` for actions
+- [ ] **EmptyState** (MUI `Box` + `Typography`)
+- [ ] **DeleteConfirmDialog** (MUI `Dialog`)
 
 ---
 
@@ -167,7 +164,7 @@ This roadmap covers the complete frontend development for the restaurant managem
 This is the most complex part - full Google Business Profile imitation.
 
 ### Multi-Step Form Structure
-Use **Tabs** for organization:
+Use MUI **Tabs** for organization:
 1. Basic Info
 2. Contacts & Location
 3. Hours
@@ -176,32 +173,32 @@ Use **Tabs** for organization:
 6. Social Media
 
 ### Tab 1: Basic Info
-- [ ] Name (required, validation)  
-- [ ] Category/Type (select dropdown)  
-- [ ] Description (textarea, 750 char limit with counter)  
-- [ ] Price Range ($, $$, $$$, $$$$) - radio buttons
+- [ ] Name - MUI `TextField` (required, validation)  
+- [ ] Category - MUI `Select` with `MenuItem`
+- [ ] Description - MUI `TextField` multiline (750 char limit with counter)  
+- [ ] Price Range - MUI `RadioGroup` with `Radio` buttons
 
 ### Tab 2: Contacts & Location
-- [ ] Phone number (formatted input)  
-- [ ] Email  
-- [ ] Website URL  
-- [ ] Address fields (street, city, zip, country)  
+- [ ] Phone number - MUI `TextField` with input mask
+- [ ] Email - MUI `TextField` with validation
+- [ ] Website URL - MUI `TextField`
+- [ ] Address fields - MUI `TextField` grid layout
 - [ ] **Map picker** (Google Maps or Mapbox API)
   - Visual map with draggable marker
   - Auto-geocoding from address
-  - Display lat/lng
+  - Display lat/lng in MUI `Typography`
 
 ### Tab 3: Hours of Operation
 - [ ] Day-by-day schedule builder
-  - Toggle for each day (open/closed)
-  - Time pickers (open/close)
-  - "24 hours" checkbox
-  - "Temporarily closed" option
-- [ ] Copy to all days button
-- [ ] Visual preview of current status
+  - MUI `Switch` for each day (open/closed)
+  - MUI `TimePicker` for open/close times
+  - MUI `Checkbox` for "24 hours"
+  - MUI `Checkbox` for "Temporarily closed"
+- [ ] MUI `Button` to copy to all days
+- [ ] Visual preview with MUI `Chip` showing status
 
 ### Tab 4: Attributes
-Group checkboxes by category:
+Group MUI `Checkbox` by category with `FormGroup`:
 - [ ] **Accessibility**  
   Wheelchair entrance, parking, restroom
 - [ ] **Amenities**  
@@ -215,40 +212,40 @@ Group checkboxes by category:
 
 ### Tab 5: Media
 - [ ] **Logo Upload**  
-  Square image, drag-and-drop  
+  MUI `Button` with file input, drag-and-drop area
   Use `POST /api/upload/image`
 - [ ] **Cover Image Upload**  
-  Wide image
+  MUI upload button
 - [ ] **Gallery** (multiple images)  
   Upload with `POST /api/upload/images` (max 10 at once)  
-  Drag-and-drop zone  
-  Image preview grid with delete buttons  
-  Category tags (Interior, Exterior, Food, Team, Other)
+  MUI drag-and-drop zone with `Box`
+  MUI `ImageList` for preview with `IconButton` delete
+  MUI `Select` for category tags
 
 ### Tab 6: Social Media
-- [ ] Instagram URL  
-- [ ] Facebook URL  
-- [ ] TikTok URL (optional)  
-- [ ] YouTube URL (optional)
+- [ ] Instagram URL - MUI `TextField`
+- [ ] Facebook URL - MUI `TextField`
+- [ ] TikTok URL (optional) - MUI `TextField`
+- [ ] YouTube URL (optional) - MUI `TextField`
 
 ### Form Features
 - [ ] **Auto-save drafts** (every 30 seconds)  
-- [ ] **Progress indicator** (show completion %)  
+- [ ] **Progress indicator** - MUI `LinearProgress` (show completion %)
 - [ ] **Real-time validation** with Zod  
-- [ ] **Preview mode** - show how public page will look  
-- [ ] Publish/Unpublish toggle  
-- [ ] Save button with loading state
+- [ ] **Preview mode** - MUI `Dialog` showing public page  
+- [ ] Publish/Unpublish - MUI `Switch`
+- [ ] Save button - MUI `Button` with `CircularProgress`
 
 ### Components
-- [ ] **RestaurantFormContainer** (main form wrapper)
-- [ ] **BasicInfoTab**
-- [ ] **ContactsTab**
-- [ ] **HoursTab** (with **DayScheduleInput** component)
-- [ ] **AttributesTab**
-- [ ] **MediaTab** (with **ImageUploader**, **ImageGallery**)
-- [ ] **SocialTab**
-- [ ] **FormProgress** indicator
-- [ ] **PreviewDialog**
+- [ ] **RestaurantFormContainer** (MUI `Box` wrapper)
+- [ ] **BasicInfoTab** (MUI form fields)
+- [ ] **ContactsTab** (MUI form fields)
+- [ ] **HoursTab** (with **DayScheduleInput** using MUI components)
+- [ ] **AttributesTab** (MUI `FormGroup` with `Checkbox`)
+- [ ] **MediaTab** (with **ImageUploader**, **ImageGallery** using MUI)
+- [ ] **SocialTab** (MUI form fields)
+- [ ] **FormProgress** (MUI `LinearProgress`)
+- [ ] **PreviewDialog** (MUI `Dialog`)
 
 ---
 
@@ -260,33 +257,33 @@ Group checkboxes by category:
 ### Sections (in order)
 1. **Hero Section**  
    - Cover image background
-   - Logo overlay
-   - Restaurant name
-   - Current status ("Open Now" / "Closed" with color)
+   - Logo overlay (MUI `Avatar`)
+   - Restaurant name (MUI `Typography` variant="h2")
+   - Current status (MUI `Chip` with color variants)
    
 2. **Action Buttons Bar**  
-   - 📞 Call (tel: link)
-   - 🗺️ Get Directions (Google Maps)
-   - 🌐 Visit Website
-   - Share button
+   - MUI `Button` with `PhoneIcon` (tel: link)
+   - MUI `Button` with `DirectionsIcon` (Google Maps)
+   - MUI `Button` with `LanguageIcon` (website)
+   - MUI `IconButton` with `ShareIcon`
 
 3. **Description**  
    Full description text
 
 4. **Photo Gallery**  
-   Grid layout with lightbox on click
+   MUI `ImageList` with lightbox on click
 
 5. **Info Cards**  
-   - **Hours** - expandable list showing all days
-   - **Address** - with embedded map
-   - **Contact** - phone, email
-   - **Attributes** - icons for Wi-Fi, parking, etc.
+   - **Hours** - MUI `Accordion` showing all days
+   - **Address** - MUI `Card` with embedded map
+   - **Contact** - MUI `Card` with phone, email
+   - **Attributes** - MUI `Chip` array for Wi-Fi, parking, etc.
 
 6. **Menu Section** (if available)  
    Display PDF or images
 
 7. **Social Media Links**  
-   Icon buttons
+   MUI `IconButton` with brand icons
 
 ### SEO Requirements
 - [ ] Dynamic `<title>` and `<meta>` tags
@@ -295,28 +292,28 @@ Group checkboxes by category:
 - [ ] Sitemap generation (all public restaurants)
 
 ### Components
-- [ ] **PublicRestaurantPage**
-- [ ] **HeroSection**
-- [ ] **ActionBar**
-- [ ] **PhotoGallery** (with lightbox)
-- [ ] **InfoCard**
-- [ ] **HoursDisplay**
-- [ ] **MapEmbed**
-- [ ] **SocialLinks**
+- [ ] **PublicRestaurantPage** (MUI `Container`)
+- [ ] **HeroSection** (MUI `Box` with background)
+- [ ] **ActionBar** (MUI `Stack` of buttons)
+- [ ] **PhotoGallery** (MUI `ImageList` with lightbox)
+- [ ] **InfoCard** (MUI `Card`)
+- [ ] **HoursDisplay** (MUI `Accordion`)
+- [ ] **MapEmbed** (iframe in MUI `Card`)
+- [ ] **SocialLinks** (MUI `IconButton` group)
 
 ---
 
 ## Phase 7: Polish & Optimization (Week 5-6)
 
 ### UI/UX Improvements
-- [ ] Loading states everywhere
-- [ ] Skeleton loaders
+- [ ] MUI `CircularProgress` for loading states
+- [ ] MUI `Skeleton` components
 - [ ] Error boundaries
-- [ ] Toast notifications (success/error)
-- [ ] Confirmation dialogs
-- [ ] Form field hints and examples
-- [ ] Responsive design testing
-- [ ] Dark mode support (optional)
+- [ ] MUI `Snackbar` for toast notifications
+- [ ] MUI `Dialog` for confirmations
+- [ ] MUI `FormHelperText` for hints
+- [ ] MUI responsive breakpoints testing
+- [ ] MUI dark mode with `ThemeProvider`
 
 ### Performance
 - [ ] Image optimization (Next.js Image)
@@ -359,14 +356,16 @@ Group checkboxes by category:
   "react": "^18.0.0",
   "typescript": "^5.0.0",
   "tailwindcss": "^3.0.0",
-  "shadcn/ui": "latest",
+  "@mui/material": "^5.14.0",
+  "@mui/icons-material": "^5.14.0",
+  "@emotion/react": "^11.11.0",
+  "@emotion/styled": "^11.11.0",
   "axios": "^1.6.0",
   "zustand": "^4.4.0",
   "react-hook-form": "^7.48.0",
   "@hookform/resolvers": "^3.3.0",
   "zod": "^3.22.0",
-  "date-fns": "^2.30.0",
-  "lucide-react": "^0.292.0"
+  "date-fns": "^2.30.0"
 }
 ```
 
@@ -374,12 +373,12 @@ Group checkboxes by category:
 
 ## 🎨 Design Guidelines
 
-- **Color Palette:** Use Tailwind default or customize
-- **Typography:** Inter or system fonts
-- **Spacing:** Consistent 4px/8px grid
-- **Animations:** Subtle, fast (duration-200)
-- **Forms:** Clear labels, inline validation, helpful errors
-- **Buttons:** Primary/Secondary hierarchy
+- **Color Palette:** MUI theme with custom primary/secondary colors
+- **Typography:** MUI default (Roboto) or customize in theme
+- **Spacing:** MUI spacing system (theme.spacing)
+- **Animations:** MUI transitions and animations
+- **Forms:** MUI form components with `FormHelperText`
+- **Buttons:** MUI `Button` variants (contained, outlined, text)
 - **Images:** WebP format, lazy loaded, with fallbacks
 
 ---
