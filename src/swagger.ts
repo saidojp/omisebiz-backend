@@ -304,6 +304,18 @@ const swaggerOptions: Options = {
             },
           },
         },
+        UploadResponse: {
+          type: "object",
+          properties: {
+            success: { type: "boolean", example: true },
+            data: {
+              type: "object",
+              properties: {
+                url: { type: "string", example: "https://pub-xxx.r2.dev/image.jpg" },
+              },
+            },
+          },
+        },
       },
       responses: {
         UserResponse: {
