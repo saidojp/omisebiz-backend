@@ -32,6 +32,11 @@ export class StorageService {
     return `${this.publicUrl}/${fileName}`;
   }
 
+  async uploadFiles(files: Express.Multer.File[]): Promise<string[]> {
+    const uploadPromises = files.map((file) => this.uploadFile(file));
+    return Promise.all(uploadPromises);
+  }
+
   async deleteFile(fileUrl: string): Promise<void> {
     if (!this.bucketName) {
       throw new Error("Storage configuration missing");
