@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.routes";
 import userRouter from "./routes/user.routes";
 import restaurantRouter from "./routes/restaurant.routes";
 import uploadRouter from "./routes/upload.routes";
+import publicRouter from "./routes/public.routes";
 import { errorHandler } from "./middleware/errorHandler";
 import swaggerSpec from "./swagger";
 import { prisma } from "./prisma";
@@ -30,6 +31,7 @@ app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/restaurants", restaurantRouter);
 app.use("/api/upload", uploadRouter);
+app.use("/api/public", publicRouter);
 
 app.get("/health", async (_req: Request, res: Response) => {
   try {
