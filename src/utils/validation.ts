@@ -78,7 +78,7 @@ export const createRestaurantSchema = z.object({
   contacts: contactSchema.optional(),
   address: addressSchema.optional(),
   hours: hoursSchema.optional(),
-  priceRange: z.enum(["$", "$$", "$$$", "$$$$"]).optional(),
+  priceRange: z.string().optional(),
   attributes: z.record(z.string(), z.any()).optional(),
   media: z.record(z.string(), z.any()).optional(),
   socials: z.record(z.string(), z.string().url()).optional(),

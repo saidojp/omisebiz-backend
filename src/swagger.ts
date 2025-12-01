@@ -85,8 +85,8 @@ const swaggerOptions: Options = {
             },
             priceRange: {
               type: "string",
-              enum: ["$", "$$", "$$$", "$$$$"],
-              example: "$$",
+              example: "1000-1500¥",
+              description: "Price range (e.g., $, $$, 1000-1500¥, Contact for pricing)",
             },
             attributes: {
               type: "object",
@@ -139,9 +139,8 @@ const swaggerOptions: Options = {
             },
             priceRange: {
               type: "string",
-              enum: ["$", "$$", "$$$", "$$$$"],
-              description: "Price range: $ (cheap), $$ (moderate), $$$ (expensive), $$$$ (very expensive)",
-              example: "$$",
+              description: "Price range (e.g., $, $$, 1000-1500¥, Contact for pricing)",
+              example: "1000-1500¥",
             },
             attributes: {
               type: "object",
@@ -189,9 +188,8 @@ const swaggerOptions: Options = {
             },
             priceRange: {
               type: "string",
-              enum: ["$", "$$", "$$$", "$$$$"],
-              description: "Price range: $ (cheap), $$ (moderate), $$$ (expensive), $$$$ (very expensive)",
-              example: "$$",
+              description: "Price range (e.g., $, $$, 1000-1500¥, Contact for pricing)",
+              example: "1000-1500¥",
             },
             attributes: {
               type: "object",

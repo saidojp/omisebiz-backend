@@ -270,6 +270,7 @@ Authorization: Bearer <token>
 - `$$` - Moderate
 - `$$$` - Expensive
 - `$$$$` - Very Expensive
+- Custom strings accepted (e.g., "1000-1500¥", "$15-25", "Contact for pricing")
 
 ---
 
@@ -607,7 +608,7 @@ GET /api/public/restaurants/my-restaurant
     lng: number;
   } | null;
   hours?: Record<DayOfWeek, HourEntry>;  // See Hours Schema below
-  priceRange?: "$" | "$$" | "$$$" | "$$$$";
+  priceRange?: string; // e.g., "$", "$$", "1000-1500¥"
   attributes?: Record<string, boolean | string>;
   media?: {
     logo?: string;
