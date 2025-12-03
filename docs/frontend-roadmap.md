@@ -28,16 +28,16 @@ This roadmap covers the complete frontend development for the restaurant managem
 ## Phase 1: Project Setup & Infrastructure (Week 1)
 
 ### Initialization
-- [ ] Create Next.js project with TypeScript
+- [x] Create Next.js project with TypeScript
   ```bash
   npx create-next-app@latest omisebiz-frontend --typescript --tailwind --app
   ```
-- [ ] Install Material UI and configure
+- [x] Install Material UI and configure
   ```bash
   npm install @mui/material @emotion/react @emotion/styled
   npm install @mui/icons-material
   ```
-- [ ] Setup project structure
+- [x] Setup project structure
   ```
   /app
     /(auth)         # Auth pages
@@ -55,54 +55,54 @@ This roadmap covers the complete frontend development for the restaurant managem
   ```
 
 ### Dependencies
-- [ ] Install core dependencies
+- [x] Install core dependencies
   ```bash
   npm install axios zustand react-hook-form @hookform/resolvers zod
   npm install date-fns clsx tailwind-merge
   ```
-- [ ] Configure MUI theme
+- [x] Configure MUI theme
   - Create `theme.ts` with custom colors and typography
   - Wrap app with `ThemeProvider` in root layout
 
 ### Configuration
-- [ ] Setup environment variables (`.env.local`)
+- [x] Setup environment variables (`.env.local`)
   ```
   NEXT_PUBLIC_API_URL=http://localhost:4000
   NEXT_PUBLIC_SITE_URL=http://localhost:3000
   ```
-- [ ] Configure Tailwind with custom theme
-- [ ] Setup API client with interceptors
-- [ ] Create auth store with Zustand
-- [ ] Setup middleware for protected routes
+- [x] Configure Tailwind with custom theme
+- [x] Setup API client with interceptors
+- [x] Create auth store with Zustand
+- [x] Setup middleware for protected routes
 
 ---
 
 ## Phase 2: Authentication & User Management (Week 1-2)
 
 ### Pages
-- [ ] `/login` - Login page
-- [ ] `/register` - Registration page
+- [x] `/login` - Login page
+- [x] `/register` - Registration page
 - [ ] `/forgot-password` - Password recovery (future)
 
 ### Components
-- [ ] **LoginForm**
+- [x] **LoginForm**
   - MUI `TextField` for email and password
   - MUI `Button` with loading state (`CircularProgress`)
   - MUI `Alert` for error handling
-- [ ] **RegisterForm**
+- [x] **RegisterForm**
   - MUI `TextField` components
   - Client-side validation with Zod
   - MUI `Snackbar` for success/error messages
 
 ### API Integration
-- [ ] `POST /auth/register`
-- [ ] `POST /auth/login`
-- [ ] `GET /auth/me`
-- [ ] Token storage (localStorage + auth store)
-- [ ] Auto-refresh logic
+- [x] `POST /auth/register`
+- [x] `POST /auth/login`
+- [x] `GET /auth/me`
+- [x] Token storage (localStorage + auth store)
+- [x] Auto-refresh logic
 
 ### State Management
-- [ ] Auth store (Zustand)
+- [x] Auth store (Zustand)
   - User state
   - Token management
   - Login/logout actions
@@ -113,7 +113,7 @@ This roadmap covers the complete frontend development for the restaurant managem
 ## Phase 3: Dashboard Layout & Navigation (Week 2)
 
 ### Layout
-- [ ] **DashboardLayout**
+- [x] **DashboardLayout**
   - MUI `Drawer` for sidebar navigation
     - Logo
     - MUI `List` with `ListItem` for menu
@@ -122,40 +122,40 @@ This roadmap covers the complete frontend development for the restaurant managem
   - MUI `Breadcrumbs` in header
 
 ### Navigation
-- [ ] `/dashboard` - Dashboard home (redirect to `/dashboard/restaurants`)
-- [ ] `/dashboard/restaurants` - Restaurant list
-- [ ] `/dashboard/restaurants/new` - Create restaurant
-- [ ] `/dashboard/restaurants/[id]/edit` - Edit restaurant
+- [x] `/dashboard` - Dashboard home (redirect to `/dashboard/restaurants`)
+- [x] `/dashboard/restaurants` - Restaurant list
+- [x] `/dashboard/restaurants/new` - Create restaurant
+- [x] `/dashboard/restaurants/[id]/edit` - Edit restaurant
 - [ ] `/dashboard/settings` - User settings
 
 ### Components
-- [ ] **Sidebar** (MUI `Drawer`)
-- [ ] **Header** (MUI `AppBar`)
-- [ ] **UserMenu** (MUI `Avatar` + `Menu`)
-- [ ] **MobileNav** (MUI responsive `Drawer`)
+- [x] **Sidebar** (MUI `Drawer`)
+- [x] **Header** (MUI `AppBar`)
+- [x] **UserMenu** (MUI `Avatar` + `Menu`)
+- [x] **MobileNav** (MUI responsive `Drawer`)
 
 ---
 
 ## Phase 4: Restaurant List & Management (Week 2-3)
 
 ### Restaurant List Page
-- [ ] **GET /restaurants** integration
-- [ ] MUI `Grid` layout with `Card` components
+- [x] **GET /restaurants** integration
+- [x] MUI `Grid` layout with `Card` components
   - MUI `CardMedia` for cover image
   - MUI `CardContent` for name, category, address
   - MUI `Chip` for Published/Draft badge
   - MUI `IconButton` for quick actions
-- [ ] Empty state with MUI `Box` and `Typography`
-- [ ] MUI `Skeleton` components for loading
-- [ ] MUI `TextField` with `InputAdornment` for search
+- [x] Empty state with MUI `Box` and `Typography`
+- [x] MUI `Skeleton` components for loading
+- [x] MUI `TextField` with `InputAdornment` for search
 
 ### Components
-- [ ] **RestaurantCard** (MUI `Card`)
+- [x] **RestaurantCard** (MUI `Card`)
   - MUI `CardMedia` for image
   - MUI `Chip` for status
   - MUI `IconButton` for actions
-- [ ] **EmptyState** (MUI `Box` + `Typography`)
-- [ ] **DeleteConfirmDialog** (MUI `Dialog`)
+- [x] **EmptyState** (MUI `Box` + `Typography`)
+- [x] **DeleteConfirmDialog** (MUI `Dialog`)
 
 ---
 
@@ -173,79 +173,79 @@ Use MUI **Tabs** for organization:
 6. Social Media
 
 ### Tab 1: Basic Info
-- [ ] Name - MUI `TextField` (required, validation)  
-- [ ] Category - MUI `Select` with `MenuItem`
-- [ ] Description - MUI `TextField` multiline (750 char limit with counter)  
-- [ ] Price Range - MUI `RadioGroup` with `Radio` buttons
+- [x] Name - MUI `TextField` (required, validation)  
+- [x] Category - MUI `Select` with `MenuItem`
+- [x] Description - MUI `TextField` multiline (750 char limit with counter)  
+- [x] Price Range - MUI `RadioGroup` with `Radio` buttons
 
 ### Tab 2: Contacts & Location
-- [ ] Phone number - MUI `TextField` with input mask
-- [ ] Email - MUI `TextField` with validation
-- [ ] Website URL - MUI `TextField`
-- [ ] Address fields - MUI `TextField` grid layout
-- [ ] **Map picker** (Google Maps or Mapbox API)
+- [x] Phone number - MUI `TextField` with input mask
+- [x] Email - MUI `TextField` with validation
+- [x] Website URL - MUI `TextField`
+- [x] Address fields - MUI `TextField` grid layout
+- [x] **Map picker** (Google Maps or Mapbox API)
   - Visual map with draggable marker
   - Auto-geocoding from address
   - Display lat/lng in MUI `Typography`
 
 ### Tab 3: Hours of Operation
-- [ ] Day-by-day schedule builder
+- [x] Day-by-day schedule builder
   - MUI `Switch` for each day (open/closed)
   - MUI `TimePicker` for open/close times
   - MUI `Checkbox` for "24 hours"
   - MUI `Checkbox` for "Temporarily closed"
-- [ ] MUI `Button` to copy to all days
-- [ ] Visual preview with MUI `Chip` showing status
+- [x] MUI `Button` to copy to all days
+- [x] Visual preview with MUI `Chip` showing status
 
 ### Tab 4: Attributes
 Group MUI `Checkbox` by category with `FormGroup`:
-- [ ] **Accessibility**  
+- [x] **Accessibility**  
   Wheelchair entrance, parking, restroom
-- [ ] **Amenities**  
+- [x] **Amenities**  
   Wi-Fi, Parking, Terrace, Kids zone, Live music, Hookah
-- [ ] **Payment Methods**  
+- [x] **Payment Methods**  
   Cash, Cards, Apple Pay, Google Pay
-- [ ] **Atmosphere**  
+- [x] **Atmosphere**  
   Casual, Cozy, Romantic, Family-friendly
-- [ ] **Services**  
+- [x] **Services**  
   Dine-in, Takeout, Delivery, Reservations, Outdoor seating
 
 ### Tab 5: Media
-- [ ] **Logo Upload**  
+- [x] **Logo Upload**  
   MUI `Button` with file input, drag-and-drop area
   Use `POST /api/upload/image`
-- [ ] **Cover Image Upload**  
+- [x] **Cover Image Upload**  
   MUI upload button
-- [ ] **Gallery** (multiple images)  
+- [x] **Gallery** (multiple images)  
   Upload with `POST /api/upload/images` (max 10 at once)  
   MUI drag-and-drop zone with `Box`
   MUI `ImageList` for preview with `IconButton` delete
   MUI `Select` for category tags
 
 ### Tab 6: Social Media
-- [ ] Instagram URL - MUI `TextField`
-- [ ] Facebook URL - MUI `TextField`
-- [ ] TikTok URL (optional) - MUI `TextField`
-- [ ] YouTube URL (optional) - MUI `TextField`
+- [x] Instagram URL - MUI `TextField`
+- [x] Facebook URL - MUI `TextField`
+- [x] TikTok URL (optional) - MUI `TextField`
+- [x] YouTube URL (optional) - MUI `TextField`
 
 ### Form Features
-- [ ] **Auto-save drafts** (every 30 seconds)  
-- [ ] **Progress indicator** - MUI `LinearProgress` (show completion %)
-- [ ] **Real-time validation** with Zod  
-- [ ] **Preview mode** - MUI `Dialog` showing public page  
-- [ ] Publish/Unpublish - MUI `Switch`
-- [ ] Save button - MUI `Button` with `CircularProgress`
+- [x] **Auto-save drafts** (every 30 seconds)  
+- [x] **Progress indicator** - MUI `LinearProgress` (show completion %)
+- [x] **Real-time validation** with Zod  
+- [x] **Preview mode** - MUI `Dialog` showing public page  
+- [x] Publish/Unpublish - MUI `Switch`
+- [x] Save button - MUI `Button` with `CircularProgress`
 
 ### Components
-- [ ] **RestaurantFormContainer** (MUI `Box` wrapper)
-- [ ] **BasicInfoTab** (MUI form fields)
-- [ ] **ContactsTab** (MUI form fields)
-- [ ] **HoursTab** (with **DayScheduleInput** using MUI components)
-- [ ] **AttributesTab** (MUI `FormGroup` with `Checkbox`)
-- [ ] **MediaTab** (with **ImageUploader**, **ImageGallery** using MUI)
-- [ ] **SocialTab** (MUI form fields)
-- [ ] **FormProgress** (MUI `LinearProgress`)
-- [ ] **PreviewDialog** (MUI `Dialog`)
+- [x] **RestaurantFormContainer** (MUI `Box` wrapper)
+- [x] **BasicInfoTab** (MUI form fields)
+- [x] **ContactsTab** (MUI form fields)
+- [x] **HoursTab** (with **DayScheduleInput** using MUI components)
+- [x] **AttributesTab** (MUI `FormGroup` with `Checkbox`)
+- [x] **MediaTab** (with **ImageUploader**, **ImageGallery** using MUI)
+- [x] **SocialTab** (MUI form fields)
+- [x] **FormProgress** (MUI `LinearProgress`)
+- [x] **PreviewDialog** (MUI `Dialog`)
 
 ---
 
@@ -286,20 +286,20 @@ Group MUI `Checkbox` by category with `FormGroup`:
    MUI `IconButton` with brand icons
 
 ### SEO Requirements
-- [ ] Dynamic `<title>` and `<meta>` tags
-- [ ] Open Graph tags for social sharing
+- [x] Dynamic `<title>` and `<meta>` tags
+- [x] Open Graph tags for social sharing
 - [ ] Schema.org/Restaurant structured data (JSON-LD)
 - [ ] Sitemap generation (all public restaurants)
 
 ### Components
-- [ ] **PublicRestaurantPage** (MUI `Container`)
-- [ ] **HeroSection** (MUI `Box` with background)
-- [ ] **ActionBar** (MUI `Stack` of buttons)
-- [ ] **PhotoGallery** (MUI `ImageList` with lightbox)
-- [ ] **InfoCard** (MUI `Card`)
-- [ ] **HoursDisplay** (MUI `Accordion`)
+- [x] **PublicRestaurantPage** (MUI `Container`)
+- [x] **HeroSection** (MUI `Box` with background)
+- [x] **ActionBar** (MUI `Stack` of buttons)
+- [x] **PhotoGallery** (MUI `ImageList` with lightbox)
+- [x] **InfoCard** (MUI `Card`)
+- [x] **HoursDisplay** (MUI `Accordion`)
 - [ ] **MapEmbed** (iframe in MUI `Card`)
-- [ ] **SocialLinks** (MUI `IconButton` group)
+- [x] **SocialLinks** (MUI `IconButton` group)
 
 ---
 

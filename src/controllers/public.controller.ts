@@ -21,10 +21,7 @@ export const getRestaurantBySlug = async (req: Request, res: Response): Promise<
     }
 
     res.status(200).json({
-      success: true,
-      data: {
-        restaurant,
-      },
+      restaurant,
     });
   } catch (error) {
     console.error("Get public restaurant error:", error);

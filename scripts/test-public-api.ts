@@ -59,7 +59,7 @@ const testPublicApi = async () => {
     console.log("Testing published restaurant...");
     try {
       const res = await axios.get(`${API_URL}/api/public/restaurants/${publishedSlug}`);
-      if (res.status === 200 && res.data.data.restaurant.slug === publishedSlug) {
+      if (res.status === 200 && res.data.restaurant.slug === publishedSlug) {
         console.log("✅ Published restaurant fetched successfully");
       } else {
         console.error("❌ Failed to fetch published restaurant");
