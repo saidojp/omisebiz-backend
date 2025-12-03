@@ -349,6 +349,8 @@ Authorization: Bearer <token>
 Authorization: Bearer <token>
 ```
 
+**Note:** When the `name` field is updated, the `slug` will be automatically regenerated based on the new name to ensure the public URL reflects the current restaurant name.
+
 **Request Body (partial update):**
 ```json
 {
@@ -362,7 +364,47 @@ Authorization: Bearer <token>
 ```json
 {
   "restaurant": {
-    /* updated restaurant object */
+    "id": "cm456xyz",
+    "slug": "updated-restaurant-name",  // Auto-regenerated from new name
+    "name": "Updated Restaurant Name",
+    "description": "Updated description",
+    "priceRange": "$$$$",
+    /* ... other fields */
+  }
+}
+```
+
+**Example:**
+```bash
+# Update restaurant name - slug will auto-regenerate
+curl -X PATCH http://localhost:4000/restaurants/cm456xyz \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Sushi Bar Tokyo"}'
+
+# Response will include: "slug": "sushi-bar-tokyo"
+```
+
+---
+
+### Manually Regenerate Slug
+**PATCH** `/restaurants/:id/regenerate-slug`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Description:** Manually regenerate the slug from the current restaurant name. Useful for fixing existing restaurants or handling edge cases.
+
+**Response (200 OK):**
+```json
+{
+  "restaurant": {
+    "id": "cm456xyz",
+    "slug": "new-generated-slug",
+    "name": "Current Restaurant Name",
+    /* ... full restaurant object */
   }
 }
 ```
