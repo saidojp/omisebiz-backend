@@ -1,7 +1,39 @@
 import { Router } from "express";
-import { getRestaurantBySlug } from "../controllers/public.controller";
+import { getRestaurantBySlug, getPublicRestaurants } from "../controllers/public.controller";
 
 const router = Router();
+
+/**
+ * @swagger
+ * /api/public/restaurants:
+ *   get:
+ *     summary: List all published restaurants
+ *     tags: [Public]
+ *     responses:
+ *       200:
+ *         description: List of published restaurants
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     restaurants:
+ *                       type: array
+ *                       items:
+ *                         $ref: "#/components/schemas/Restaurant"
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ */
+router.get("/restaurants", getPublicRestaurants);
 
 /**
  * @swagger

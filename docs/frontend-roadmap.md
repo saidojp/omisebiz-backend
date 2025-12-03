@@ -126,6 +126,7 @@ This roadmap covers the complete frontend development for the restaurant managem
 - [x] `/dashboard/restaurants` - Restaurant list
 - [x] `/dashboard/restaurants/new` - Create restaurant
 - [x] `/dashboard/restaurants/[id]/edit` - Edit restaurant
+- [ ] `/dashboard/feed` - Public restaurants feed (All published restaurants)
 - [ ] `/dashboard/settings` - User settings
 
 ### Components

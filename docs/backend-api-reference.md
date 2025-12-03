@@ -561,6 +561,42 @@ DELETE /api/upload/uuid.jpg
 
 ## 🌐 Public API
 
+### List Public Restaurants
+**GET** `/api/public/restaurants`
+
+**No authentication required**
+
+**Response (200 OK):**
+```json
+{
+  "success": true,
+  "data": {
+    "restaurants": [
+      {
+        "id": "cm456xyz",
+        "slug": "my-restaurant",
+        "name": "My Restaurant",
+        "description": "A wonderful place to eat",
+        "category": "Japanese",
+        "media": {
+          "cover": "https://pub-xxx.r2.dev/cover.jpg",
+          "logo": "https://pub-xxx.r2.dev/logo.jpg"
+        },
+        "location": {
+          "lat": 35.6762,
+          "lng": 139.6503
+        },
+        "priceRange": "$$",
+        "isPublished": true,
+        "createdAt": "2025-11-26T10:00:00.000Z"
+      }
+    ]
+  }
+}
+```
+
+---
+
 ### Get Restaurant by Slug
 **GET** `/api/public/restaurants/:slug`
 
