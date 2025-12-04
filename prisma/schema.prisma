@@ -40,6 +40,10 @@ model Restaurant {
   media       Json?    // { logo, cover, gallery: [] }
   socials     Json?    // { instagram, facebook, etc }
   
+  // Menu
+  menuItems    Json?   @db.JsonB  // Array of menu items
+  featuredDish Json?   @db.JsonB  // Featured/recommended dish
+  
   // Meta
   isPublished Boolean  @default(false)
   

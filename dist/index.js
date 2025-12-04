@@ -10,6 +10,8 @@ const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
 const restaurant_routes_1 = __importDefault(require("./routes/restaurant.routes"));
+const upload_routes_1 = __importDefault(require("./routes/upload.routes"));
+const public_routes_1 = __importDefault(require("./routes/public.routes"));
 const errorHandler_1 = require("./middleware/errorHandler");
 const swagger_1 = __importDefault(require("./swagger"));
 const prisma_1 = require("./prisma");
@@ -28,6 +30,8 @@ app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.de
 app.use("/auth", auth_routes_1.default);
 app.use("/user", user_routes_1.default);
 app.use("/restaurants", restaurant_routes_1.default);
+app.use("/api/upload", upload_routes_1.default);
+app.use("/api/public", public_routes_1.default);
 app.get("/health", async (_req, res) => {
     try {
         await prisma_1.prisma.$queryRaw `SELECT 1`;

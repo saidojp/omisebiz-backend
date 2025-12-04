@@ -50,6 +50,23 @@ const addressSchema = zod_1.z.object({
     zip: zod_1.z.string().optional(),
     country: zod_1.z.string().optional(),
 });
+// Menu Item Schema
+const menuItemSchema = zod_1.z.object({
+    id: zod_1.z.string().min(1, "Menu item ID is required"),
+    name: zod_1.z.string().min(1, "Menu item name is required"),
+    description: zod_1.z.string().optional(),
+    price: zod_1.z.string().min(1, "Price is required"),
+    category: zod_1.z.string().optional(),
+    imageUrl: zod_1.z.string().url().optional().or(zod_1.z.literal("")),
+});
+// Featured Dish Schema
+const featuredDishSchema = zod_1.z.object({
+    menuItemId: zod_1.z.string().optional(),
+    name: zod_1.z.string().min(1, "Featured dish name is required"),
+    description: zod_1.z.string().optional(),
+    price: zod_1.z.string().min(1, "Price is required"),
+    imageUrl: zod_1.z.string().url().optional().or(zod_1.z.literal("")),
+}).optional();
 exports.createRestaurantSchema = zod_1.z.object({
     name: zod_1.z.string().min(1),
     description: zod_1.z.string().optional(),
@@ -57,10 +74,12 @@ exports.createRestaurantSchema = zod_1.z.object({
     contacts: contactSchema.optional(),
     address: addressSchema.optional(),
     hours: hoursSchema.optional(),
-    priceRange: zod_1.z.enum(["$", "$$", "$$$", "$$$$"]).optional(),
+    priceRange: zod_1.z.string().optional(),
     attributes: zod_1.z.record(zod_1.z.string(), zod_1.z.any()).optional(),
     media: zod_1.z.record(zod_1.z.string(), zod_1.z.any()).optional(),
     socials: zod_1.z.record(zod_1.z.string(), zod_1.z.string().url()).optional(),
+    menuItems: zod_1.z.array(menuItemSchema).optional(),
+    featuredDish: featuredDishSchema,
 });
 exports.updateRestaurantSchema = exports.createRestaurantSchema.partial();
 const validate = (schema, payload) => {

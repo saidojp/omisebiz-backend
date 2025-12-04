@@ -87,6 +87,10 @@ router.get("/:id", restaurant_controller_1.getRestaurant);
  *   patch:
  *     tags: [Restaurants]
  *     summary: Update restaurant
+ *     description: |
+ *       Updates restaurant details.
+ *       **Note**: If the 'name' field is changed, the 'slug' will be automatically regenerated
+ *       to ensure the public URL reflects the current restaurant name.
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -183,4 +187,33 @@ router.patch("/:id/publish", restaurant_controller_1.publishRestaurant);
  *               $ref: "#/components/schemas/RestaurantResponse"
  */
 router.patch("/:id/unpublish", restaurant_controller_1.unpublishRestaurant);
+/**
+ * @swagger
+ * /restaurants/{id}/regenerate-slug:
+ *   patch:
+ *     tags: [Restaurants]
+ *     summary: Manually regenerate restaurant slug
+ *     description: |
+ *       Regenerates the slug from the current restaurant name.
+ *       Useful for fixing existing restaurants or handling edge cases.
+ *       The slug will be based on the current name and will ensure uniqueness.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       "200":
+ *         description: Restaurant with regenerated slug
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/RestaurantResponse"
+ *       "404":
+ *         $ref: "#/components/responses/NotFound"
+ */
+router.patch("/:id/regenerate-slug", restaurant_controller_1.regenerateSlug);
 exports.default = router;

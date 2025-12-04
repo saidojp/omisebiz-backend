@@ -35,9 +35,30 @@ const errorHandler = (err, _req, res, _next) => {
             });
             return;
         }
+        if (err.code === "P2003") {
+            res.status(400).json({
+                error: { message: "Related record not found (Foreign Key Constraint)" },
+            });
+            return;
+        }
     }
-    const status = err instanceof AppError ? err.statusCode : 500;
-    const message = err instanceof AppError ? err.message : "Internal server error";
+    // Check if error has a statusCode property (like body-parser errors)
+    let status = 500;
+    let message = "Internal server error";
+    if (err instanceof AppError) {
+        status = err.statusCode;
+        message = err.message;
+    }
+    else if ("statusCode" in err && typeof err.statusCode === "number") {
+        // Handle errors with statusCode property (e.g., body-parser)
+        status = err.statusCode;
+        message = err.message || "Bad request";
+    }
+    else if ("status" in err && typeof err.status === "number") {
+        // Handle errors with status property
+        status = err.status;
+        message = err.message || "Bad request";
+    }
     if (status >= 500) {
         // eslint-disable-next-line no-console
         console.error(err);

@@ -1,28 +1,35 @@
 import { Request, Response } from "express";
 import { prisma } from "../prisma";
+import { Prisma } from "@prisma/client";
 
 export const getPublicRestaurants = async (req: Request, res: Response): Promise<void> => {
+  // Fetch public restaurants with menu data
   try {
+    const select: Prisma.RestaurantSelect = {
+      id: true,
+      slug: true,
+      name: true,
+      description: true,
+      category: true,
+      media: true,
+      location: true,
+      priceRange: true,
+      menuItems: true,
+      featuredDish: true,
+      isPublished: true,
+      createdAt: true,
+    };
+
     const restaurants = await prisma.restaurant.findMany({
       where: {
         isPublished: true,
       },
-      select: {
-        id: true,
-        slug: true,
-        name: true,
-        description: true,
-        category: true,
-        media: true,
-        location: true,
-        priceRange: true,
-        isPublished: true,
-        createdAt: true,
-      },
+      select,
       orderBy: {
         createdAt: "desc",
       },
     });
+
 
     res.status(200).json({
       success: true,

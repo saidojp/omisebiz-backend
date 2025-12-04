@@ -71,6 +71,25 @@ const addressSchema = z.object({
   country: z.string().optional(),
 });
 
+// Menu Item Schema
+const menuItemSchema = z.object({
+  id: z.string().min(1, "Menu item ID is required"),
+  name: z.string().min(1, "Menu item name is required"),
+  description: z.string().optional(),
+  price: z.string().min(1, "Price is required"),
+  category: z.string().optional(),
+  imageUrl: z.string().url().optional().or(z.literal("")),
+});
+
+// Featured Dish Schema
+const featuredDishSchema = z.object({
+  menuItemId: z.string().optional(),
+  name: z.string().min(1, "Featured dish name is required"),
+  description: z.string().optional(),
+  price: z.string().min(1, "Price is required"),
+  imageUrl: z.string().url().optional().or(z.literal("")),
+}).optional();
+
 export const createRestaurantSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
@@ -82,6 +101,8 @@ export const createRestaurantSchema = z.object({
   attributes: z.record(z.string(), z.any()).optional(),
   media: z.record(z.string(), z.any()).optional(),
   socials: z.record(z.string(), z.string().url()).optional(),
+  menuItems: z.array(menuItemSchema).optional(),
+  featuredDish: featuredDishSchema,
 });
 
 export const updateRestaurantSchema = createRestaurantSchema.partial();

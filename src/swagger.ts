@@ -19,6 +19,75 @@ const swaggerOptions: Options = {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
       },
       schemas: {
+        MenuItem: {
+          type: "object",
+          required: ["id", "name", "price"],
+          properties: {
+            id: {
+              type: "string",
+              description: "Unique menu item ID (frontend-generated)",
+              example: "menu-1701234567890",
+            },
+            name: {
+              type: "string",
+              description: "Dish name",
+              example: "Grilled Salmon",
+            },
+            description: {
+              type: "string",
+              description: "Dish description",
+              example: "Fresh Atlantic salmon with lemon butter sauce",
+            },
+            price: {
+              type: "string",
+              description: "Price (supports various formats)",
+              example: "¥2500",
+            },
+            category: {
+              type: "string",
+              description: "Menu category",
+              example: "Main Course",
+            },
+            imageUrl: {
+              type: "string",
+              format: "uri",
+              description: "Dish image URL",
+              example: "https://example.com/salmon.jpg",
+            },
+          },
+        },
+        FeaturedDish: {
+          type: "object",
+          required: ["name", "price"],
+          properties: {
+            menuItemId: {
+              type: "string",
+              description: "Reference to menu item ID (optional)",
+              example: "menu-1701234567890",
+            },
+            name: {
+              type: "string",
+              description: "Dish name",
+              example: "Grilled Salmon",
+            },
+            description: {
+              type: "string",
+              description: "Dish description",
+              example: "Fresh Atlantic salmon with lemon butter sauce",
+            },
+            price: {
+              type: "string",
+              description: "Price",
+              example: "¥2500",
+            },
+            imageUrl: {
+              type: "string",
+              format: "uri",
+              description: "Dish image URL",
+              example: "https://example.com/salmon.jpg",
+            },
+          },
+        },
         User: {
           type: "object",
           required: [
@@ -100,6 +169,15 @@ const swaggerOptions: Options = {
               type: "object",
               example: { instagram: "https://instagram.com/restaurant" },
             },
+            menuItems: {
+              type: "array",
+              items: { $ref: "#/components/schemas/MenuItem" },
+              description: "List of menu items",
+            },
+            featuredDish: {
+              $ref: "#/components/schemas/FeaturedDish",
+              description: "Featured/recommended dish",
+            },
             isPublished: { type: "boolean", example: false },
             userId: { type: "string", example: "cmie5z9d80001pi959kmejudg" },
             createdAt: { type: "string", format: "date-time", example: "2025-11-25T07:17:34.235Z" },
@@ -154,6 +232,15 @@ const swaggerOptions: Options = {
               type: "object",
               example: { instagram: "https://instagram.com/restaurant" },
             },
+            menuItems: {
+              type: "array",
+              items: { $ref: "#/components/schemas/MenuItem" },
+              description: "List of menu items",
+            },
+            featuredDish: {
+              $ref: "#/components/schemas/FeaturedDish",
+              description: "Featured/recommended dish",
+            },
           },
         },
         UpdateRestaurantRequest: {
@@ -202,6 +289,15 @@ const swaggerOptions: Options = {
             socials: {
               type: "object",
               example: { instagram: "https://instagram.com/restaurant" },
+            },
+            menuItems: {
+              type: "array",
+              items: { $ref: "#/components/schemas/MenuItem" },
+              description: "List of menu items",
+            },
+            featuredDish: {
+              $ref: "#/components/schemas/FeaturedDish",
+              description: "Featured/recommended dish",
             },
           },
         },

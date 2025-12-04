@@ -23,6 +23,75 @@ const swaggerOptions = {
                 bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
             },
             schemas: {
+                MenuItem: {
+                    type: "object",
+                    required: ["id", "name", "price"],
+                    properties: {
+                        id: {
+                            type: "string",
+                            description: "Unique menu item ID (frontend-generated)",
+                            example: "menu-1701234567890",
+                        },
+                        name: {
+                            type: "string",
+                            description: "Dish name",
+                            example: "Grilled Salmon",
+                        },
+                        description: {
+                            type: "string",
+                            description: "Dish description",
+                            example: "Fresh Atlantic salmon with lemon butter sauce",
+                        },
+                        price: {
+                            type: "string",
+                            description: "Price (supports various formats)",
+                            example: "¥2500",
+                        },
+                        category: {
+                            type: "string",
+                            description: "Menu category",
+                            example: "Main Course",
+                        },
+                        imageUrl: {
+                            type: "string",
+                            format: "uri",
+                            description: "Dish image URL",
+                            example: "https://example.com/salmon.jpg",
+                        },
+                    },
+                },
+                FeaturedDish: {
+                    type: "object",
+                    required: ["name", "price"],
+                    properties: {
+                        menuItemId: {
+                            type: "string",
+                            description: "Reference to menu item ID (optional)",
+                            example: "menu-1701234567890",
+                        },
+                        name: {
+                            type: "string",
+                            description: "Dish name",
+                            example: "Grilled Salmon",
+                        },
+                        description: {
+                            type: "string",
+                            description: "Dish description",
+                            example: "Fresh Atlantic salmon with lemon butter sauce",
+                        },
+                        price: {
+                            type: "string",
+                            description: "Price",
+                            example: "¥2500",
+                        },
+                        imageUrl: {
+                            type: "string",
+                            format: "uri",
+                            description: "Dish image URL",
+                            example: "https://example.com/salmon.jpg",
+                        },
+                    },
+                },
                 User: {
                     type: "object",
                     required: [
@@ -49,68 +118,190 @@ const swaggerOptions = {
                 Restaurant: {
                     type: "object",
                     properties: {
-                        id: { type: "string" },
-                        slug: { type: "string" },
-                        name: { type: "string" },
-                        description: { type: "string" },
-                        category: { type: "string" },
+                        id: { type: "string", example: "cmie8tz8b0005piv2md0japx1" },
+                        slug: { type: "string", example: "my-restaurant" },
+                        name: { type: "string", example: "My Restaurant" },
+                        description: { type: "string", example: "A wonderful place to eat" },
+                        category: { type: "string", example: "Japanese" },
                         contacts: {
                             type: "object",
                             properties: {
-                                phone: { type: "string" },
-                                email: { type: "string" },
-                                website: { type: "string" },
+                                phone: { type: "string", example: "+81-3-1234-5678" },
+                                email: { type: "string", example: "info@restaurant.com" },
+                                website: { type: "string", example: "https://restaurant.com" },
                             },
                         },
                         address: {
                             type: "object",
                             properties: {
-                                street: { type: "string" },
-                                city: { type: "string" },
-                                zip: { type: "string" },
-                                country: { type: "string" },
+                                street: { type: "string", example: "1-2-3 Shibuya" },
+                                city: { type: "string", example: "Tokyo" },
+                                zip: { type: "string", example: "150-0002" },
+                                country: { type: "string", example: "Japan" },
                             },
                         },
-                        hours: { type: "object" },
-                        priceRange: { type: "string" },
-                        attributes: { type: "object" },
-                        media: { type: "object" },
-                        socials: { type: "object" },
-                        isPublished: { type: "boolean" },
-                        userId: { type: "string" },
-                        createdAt: { type: "string", format: "date-time" },
-                        updatedAt: { type: "string", format: "date-time" },
+                        location: {
+                            type: "object",
+                            nullable: true,
+                            properties: {
+                                lat: { type: "number", example: 35.6762 },
+                                lng: { type: "number", example: 139.6503 },
+                            },
+                        },
+                        hours: {
+                            type: "object",
+                            example: {
+                                monday: { isOpen: true, open: "09:00", close: "22:00" },
+                                tuesday: { isOpen: false },
+                            },
+                        },
+                        priceRange: {
+                            type: "string",
+                            example: "1000-1500¥",
+                            description: "Price range (e.g., $, $$, 1000-1500¥, Contact for pricing)",
+                        },
+                        attributes: {
+                            type: "object",
+                            example: { hasWifi: true, hasParking: true },
+                        },
+                        media: {
+                            type: "object",
+                            example: { logo: "https://example.com/logo.jpg" },
+                        },
+                        socials: {
+                            type: "object",
+                            example: { instagram: "https://instagram.com/restaurant" },
+                        },
+                        menuItems: {
+                            type: "array",
+                            items: { $ref: "#/components/schemas/MenuItem" },
+                            description: "List of menu items",
+                        },
+                        featuredDish: {
+                            $ref: "#/components/schemas/FeaturedDish",
+                            description: "Featured/recommended dish",
+                        },
+                        isPublished: { type: "boolean", example: false },
+                        userId: { type: "string", example: "cmie5z9d80001pi959kmejudg" },
+                        createdAt: { type: "string", format: "date-time", example: "2025-11-25T07:17:34.235Z" },
+                        updatedAt: { type: "string", format: "date-time", example: "2025-11-25T07:17:34.235Z" },
                     },
                 },
                 CreateRestaurantRequest: {
                     type: "object",
                     required: ["name"],
                     properties: {
-                        name: { type: "string" },
-                        description: { type: "string" },
-                        category: { type: "string" },
-                        contacts: { type: "object" },
-                        address: { type: "object" },
-                        hours: { type: "object" },
-                        priceRange: { type: "string" },
-                        attributes: { type: "object" },
-                        media: { type: "object" },
-                        socials: { type: "object" },
+                        name: { type: "string", example: "My Restaurant" },
+                        description: { type: "string", example: "A wonderful place to eat" },
+                        category: { type: "string", example: "Japanese" },
+                        contacts: {
+                            type: "object",
+                            properties: {
+                                phone: { type: "string", example: "+81-3-1234-5678" },
+                                email: { type: "string", format: "email", example: "info@restaurant.com" },
+                                website: { type: "string", format: "uri", example: "https://restaurant.com" },
+                            },
+                        },
+                        address: {
+                            type: "object",
+                            properties: {
+                                street: { type: "string", example: "1-2-3 Shibuya" },
+                                city: { type: "string", example: "Tokyo" },
+                                zip: { type: "string", example: "150-0002" },
+                                country: { type: "string", example: "Japan" },
+                            },
+                        },
+                        hours: {
+                            type: "object",
+                            example: {
+                                monday: { isOpen: true, open: "09:00", close: "22:00" },
+                                tuesday: { isOpen: false },
+                            },
+                        },
+                        priceRange: {
+                            type: "string",
+                            description: "Price range (e.g., $, $$, 1000-1500¥, Contact for pricing)",
+                            example: "1000-1500¥",
+                        },
+                        attributes: {
+                            type: "object",
+                            example: { hasWifi: true, hasParking: true },
+                        },
+                        media: {
+                            type: "object",
+                            example: { logo: "https://example.com/logo.jpg" },
+                        },
+                        socials: {
+                            type: "object",
+                            example: { instagram: "https://instagram.com/restaurant" },
+                        },
+                        menuItems: {
+                            type: "array",
+                            items: { $ref: "#/components/schemas/MenuItem" },
+                            description: "List of menu items",
+                        },
+                        featuredDish: {
+                            $ref: "#/components/schemas/FeaturedDish",
+                            description: "Featured/recommended dish",
+                        },
                     },
                 },
                 UpdateRestaurantRequest: {
                     type: "object",
                     properties: {
-                        name: { type: "string" },
-                        description: { type: "string" },
-                        category: { type: "string" },
-                        contacts: { type: "object" },
-                        address: { type: "object" },
-                        hours: { type: "object" },
-                        priceRange: { type: "string" },
-                        attributes: { type: "object" },
-                        media: { type: "object" },
-                        socials: { type: "object" },
+                        name: { type: "string", example: "Updated Restaurant Name" },
+                        description: { type: "string", example: "Updated description" },
+                        category: { type: "string", example: "Italian" },
+                        contacts: {
+                            type: "object",
+                            properties: {
+                                phone: { type: "string", example: "+81-3-1234-5678" },
+                                email: { type: "string", format: "email", example: "info@restaurant.com" },
+                                website: { type: "string", format: "uri", example: "https://restaurant.com" },
+                            },
+                        },
+                        address: {
+                            type: "object",
+                            properties: {
+                                street: { type: "string", example: "1-2-3 Shibuya" },
+                                city: { type: "string", example: "Tokyo" },
+                                zip: { type: "string", example: "150-0002" },
+                                country: { type: "string", example: "Japan" },
+                            },
+                        },
+                        hours: {
+                            type: "object",
+                            example: {
+                                monday: { isOpen: true, open: "09:00", close: "22:00" },
+                                tuesday: { isOpen: false },
+                            },
+                        },
+                        priceRange: {
+                            type: "string",
+                            description: "Price range (e.g., $, $$, 1000-1500¥, Contact for pricing)",
+                            example: "1000-1500¥",
+                        },
+                        attributes: {
+                            type: "object",
+                            example: { hasWifi: true, hasParking: true },
+                        },
+                        media: {
+                            type: "object",
+                            example: { logo: "https://example.com/logo.jpg" },
+                        },
+                        socials: {
+                            type: "object",
+                            example: { instagram: "https://instagram.com/restaurant" },
+                        },
+                        menuItems: {
+                            type: "array",
+                            items: { $ref: "#/components/schemas/MenuItem" },
+                            description: "List of menu items",
+                        },
+                        featuredDish: {
+                            $ref: "#/components/schemas/FeaturedDish",
+                            description: "Featured/recommended dish",
+                        },
                     },
                 },
                 RestaurantResponse: {
@@ -150,13 +341,19 @@ const swaggerOptions = {
                 },
                 UpdateUserRequest: {
                     type: "object",
+                    description: "At least one field (username or password) must be provided",
                     properties: {
                         username: {
                             type: "string",
                             example: "new_name",
                             description: "New unique username (case-insensitive)",
                         },
-                        password: { type: "string", pattern: "^\\d{6}$" },
+                        password: {
+                            type: "string",
+                            pattern: "^\\d{6}$",
+                            example: "654321",
+                            description: "New password (exactly 6 digits)",
+                        },
                     },
                 },
                 UsernameRequest: {
@@ -201,6 +398,18 @@ const swaggerOptions = {
                         error: {
                             type: "object",
                             properties: { message: { type: "string" } },
+                        },
+                    },
+                },
+                UploadResponse: {
+                    type: "object",
+                    properties: {
+                        success: { type: "boolean", example: true },
+                        data: {
+                            type: "object",
+                            properties: {
+                                url: { type: "string", example: "https://pub-xxx.r2.dev/image.jpg" },
+                            },
                         },
                     },
                 },
