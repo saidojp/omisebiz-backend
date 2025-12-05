@@ -32,7 +32,7 @@ model Restaurant {
   location    Json?    // { lat, lng }
   
   // Operations
-  hours       Json?    // { monday: { isOpen, open, close }, ... }
+  hours       Json?    // { monday: { isOpen, open, close, breakStart, breakEnd }, ... }
   priceRange  String?  // $, $$, $$$, $$$$
   
   // Details

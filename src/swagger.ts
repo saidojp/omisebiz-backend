@@ -148,7 +148,13 @@ const swaggerOptions: Options = {
             hours: {
               type: "object",
               example: {
-                monday: { isOpen: true, open: "09:00", close: "22:00" },
+                monday: { 
+                  isOpen: true, 
+                  open: "09:00", 
+                  close: "22:00",
+                  breakStart: "14:00",
+                  breakEnd: "15:00"
+                },
                 tuesday: { isOpen: false },
               },
             },

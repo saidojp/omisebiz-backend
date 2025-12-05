@@ -55,6 +55,8 @@ const hoursSchema = z.record(
     isOpen: z.boolean(),
     open: z.string().regex(/^\d{2}:\d{2}$/).optional(),
     close: z.string().regex(/^\d{2}:\d{2}$/).optional(),
+    breakStart: z.string().regex(/^\d{2}:\d{2}$/).optional(),
+    breakEnd: z.string().regex(/^\d{2}:\d{2}$/).optional(),
   })
 );
 
