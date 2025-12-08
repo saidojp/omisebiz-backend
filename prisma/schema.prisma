@@ -33,7 +33,7 @@ model Restaurant {
   
   // Operations
   hours       Json?    // { monday: { isOpen, open, close, breakStart, breakEnd }, ... }
-  priceRange  String?  // $, $$, $$$, $$$$
+  priceRange  Json?    // { min: number, max: number, currency: "¥" }
   
   // Details
   attributes  Json?    // { wifi, parking, etc }
