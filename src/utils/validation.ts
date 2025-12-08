@@ -100,7 +100,11 @@ export const createRestaurantSchema = z.object({
   contacts: contactSchema.optional(),
   address: addressSchema.optional(),
   hours: hoursSchema.optional(),
-  priceRange: z.string().optional(),
+  priceRange: z.object({
+    min: z.number(),
+    max: z.number(),
+    currency: z.literal("¥"),
+  }).optional(),
   attributes: z.record(z.string(), z.any()).optional(),
   media: z.record(z.string(), z.any()).optional(),
   socials: z.record(z.string(), z.string().url()).optional(),

@@ -159,9 +159,13 @@ const swaggerOptions: Options = {
               },
             },
             priceRange: {
-              type: "string",
-              example: "1000-1500¥",
-              description: "Price range (e.g., $, $$, 1000-1500¥, Contact for pricing)",
+              type: "object",
+              description: "Price range",
+              properties: {
+                min: { type: "number", example: 1000 },
+                max: { type: "number", example: 3000 },
+                currency: { type: "string", example: "¥" },
+              },
             },
             attributes: {
               type: "object",
@@ -222,9 +226,13 @@ const swaggerOptions: Options = {
               },
             },
             priceRange: {
-              type: "string",
-              description: "Price range (e.g., $, $$, 1000-1500¥, Contact for pricing)",
-              example: "1000-1500¥",
+              type: "object",
+              description: "Price range",
+              properties: {
+                min: { type: "number", example: 1000 },
+                max: { type: "number", example: 3000 },
+                currency: { type: "string", example: "¥" },
+              },
             },
             attributes: {
               type: "object",
@@ -280,9 +288,13 @@ const swaggerOptions: Options = {
               },
             },
             priceRange: {
-              type: "string",
-              description: "Price range (e.g., $, $$, 1000-1500¥, Contact for pricing)",
-              example: "1000-1500¥",
+              type: "object",
+              description: "Price range",
+              properties: {
+                min: { type: "number", example: 1000 },
+                max: { type: "number", example: 3000 },
+                currency: { type: "string", example: "¥" },
+              },
             },
             attributes: {
               type: "object",
