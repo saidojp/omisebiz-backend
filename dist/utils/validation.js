@@ -38,6 +38,9 @@ const hoursSchema = zod_1.z.record(zod_1.z.string(), zod_1.z.object({
     isOpen: zod_1.z.boolean(),
     open: zod_1.z.string().regex(/^\d{2}:\d{2}$/).optional(),
     close: zod_1.z.string().regex(/^\d{2}:\d{2}$/).optional(),
+    // Add these lines:
+    breakStart: zod_1.z.string().regex(/^\d{2}:\d{2}$/).optional().or(zod_1.z.literal('')),
+    breakEnd: zod_1.z.string().regex(/^\d{2}:\d{2}$/).optional().or(zod_1.z.literal('')),
 }));
 const contactSchema = zod_1.z.object({
     phone: zod_1.z.string().optional(),
@@ -74,7 +77,11 @@ exports.createRestaurantSchema = zod_1.z.object({
     contacts: contactSchema.optional(),
     address: addressSchema.optional(),
     hours: hoursSchema.optional(),
-    priceRange: zod_1.z.string().optional(),
+    priceRange: zod_1.z.object({
+        min: zod_1.z.number(),
+        max: zod_1.z.number(),
+        currency: zod_1.z.literal("¥"),
+    }).optional(),
     attributes: zod_1.z.record(zod_1.z.string(), zod_1.z.any()).optional(),
     media: zod_1.z.record(zod_1.z.string(), zod_1.z.any()).optional(),
     socials: zod_1.z.record(zod_1.z.string(), zod_1.z.string().url()).optional(),
