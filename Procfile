@@ -1,3 +1,4 @@
-web: node dist/index.js
+web: npm start
+release: npx prisma migrate deploy
 
 
