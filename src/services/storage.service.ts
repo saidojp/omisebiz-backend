@@ -1,15 +1,15 @@
 import { PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
-import { r2Client } from "../config/r2";
+import { getR2Client } from "../config/r2";
 import path from "path";
 import crypto from "crypto";
 
 export class StorageService {
-  private bucketName = process.env.R2_BUCKET_NAME;
-  private publicUrl = process.env.R2_PUBLIC_URL;
+  private get bucketName() {
+    return process.env.R2_BUCKET_NAME;
+  }
 
-  constructor() {
-    if (!this.bucketName) console.warn("R2_BUCKET_NAME is missing");
-    if (!this.publicUrl) console.warn("R2_PUBLIC_URL is missing");
+  private get publicUrl() {
+    return process.env.R2_PUBLIC_URL;
   }
 
   async uploadFile(file: Express.Multer.File): Promise<string> {
@@ -27,7 +27,7 @@ export class StorageService {
       ContentType: file.mimetype,
     });
 
-    await r2Client.send(command);
+    await getR2Client().send(command);
 
     return `${this.publicUrl}/${fileName}`;
   }
@@ -50,6 +50,6 @@ export class StorageService {
       Key: fileName,
     });
 
-    await r2Client.send(command);
+    await getR2Client().send(command);
   }
 }

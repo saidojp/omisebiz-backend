@@ -12,14 +12,16 @@ const generateUniqueID_1 = require("../utils/generateUniqueID");
 const validation_1 = require("../utils/validation");
 const user_1 = require("../utils/user");
 const client_1 = require("@prisma/client");
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) {
-    throw new Error("JWT_SECRET env variable is required");
-}
-const JWT_EXPIRES_IN = (process.env.JWT_EXPIRES_IN ??
-    "7d");
 const SALT_ROUNDS = 10;
-const signToken = (userId) => jsonwebtoken_1.default.sign({ sub: userId }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+const signToken = (userId) => {
+    const JWT_SECRET = process.env.JWT_SECRET;
+    if (!JWT_SECRET) {
+        throw new Error("JWT_SECRET env variable is required");
+    }
+    const JWT_EXPIRES_IN = (process.env.JWT_EXPIRES_IN ??
+        "7d");
+    return jsonwebtoken_1.default.sign({ sub: userId }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+};
 const createUserWithUniqueID = async (email, hashedPassword, username) => {
     for (let attempt = 0; attempt < 5; attempt++) {
         const uniqueID = await (0, generateUniqueID_1.generateUniqueID)();

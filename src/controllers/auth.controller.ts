@@ -14,16 +14,16 @@ import {
 import { sanitizeUser } from "../utils/user";
 import { Prisma } from "@prisma/client";
 
-const JWT_SECRET = process.env.JWT_SECRET as string;
-if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET env variable is required");
-}
-const JWT_EXPIRES_IN = (process.env.JWT_EXPIRES_IN ??
-  "7d") as SignOptions["expiresIn"];
 const SALT_ROUNDS = 10;
-
-const signToken = (userId: string): string =>
-  jwt.sign({ sub: userId }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+const signToken = (userId: string): string => {
+  const JWT_SECRET = process.env.JWT_SECRET;
+  if (!JWT_SECRET) {
+    throw new Error("JWT_SECRET env variable is required");
+  }
+  const JWT_EXPIRES_IN = (process.env.JWT_EXPIRES_IN ??
+    "7d") as SignOptions["expiresIn"];
+  return jwt.sign({ sub: userId }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+};
 
 const createUserWithUniqueID = async (
   email: string,

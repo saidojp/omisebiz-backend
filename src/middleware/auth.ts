@@ -2,11 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { AppError } from "./errorHandler";
 
-const JWT_SECRET = process.env.JWT_SECRET;
 
-if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET environment variable is required");
-}
 
 export const authenticate = (
   req: Request,
@@ -23,6 +19,10 @@ export const authenticate = (
   const token = authHeader.split(" ")[1];
 
   try {
+    const JWT_SECRET = process.env.JWT_SECRET;
+    if (!JWT_SECRET) {
+      throw new Error("JWT_SECRET environment variable is required");
+    }
     const payload = jwt.verify(token, JWT_SECRET) as JwtPayload;
     const userId = (payload.sub as string) ?? (payload.id as string);
 
