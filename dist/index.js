@@ -22,8 +22,12 @@ const corsOrigins = (process.env.CORS_ORIGINS ?? "*")
     .split(",")
     .map((o) => o.trim())
     .filter(Boolean);
+if (process.env.FRONTEND_URL) {
+    corsOrigins.push(process.env.FRONTEND_URL);
+}
 app.use((0, cors_1.default)({
     origin: corsOrigins.includes("*") ? true : corsOrigins,
+    credentials: true,
 }));
 app.use(express_1.default.json());
 app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
