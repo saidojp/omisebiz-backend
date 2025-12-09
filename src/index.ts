@@ -19,9 +19,15 @@ const corsOrigins = (process.env.CORS_ORIGINS ?? "*")
   .split(",")
   .map((o) => o.trim())
   .filter(Boolean);
+
+if (process.env.FRONTEND_URL) {
+  corsOrigins.push(process.env.FRONTEND_URL);
+}
+
 app.use(
   cors({
     origin: corsOrigins.includes("*") ? true : corsOrigins,
+    credentials: true,
   })
 );
 
