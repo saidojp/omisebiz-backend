@@ -37,6 +37,7 @@ model Restaurant {
   
   // Details
   attributes  Json?    // { wifi, parking, etc }
+  featuredAttributes Json? // Array of strings keys to show on card
   media       Json?    // { logo, cover, gallery: [] }
   socials     Json?    // { instagram, facebook, etc }
   

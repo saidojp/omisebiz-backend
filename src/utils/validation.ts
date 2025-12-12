@@ -106,6 +106,7 @@ export const createRestaurantSchema = z.object({
     currency: z.literal("¥"),
   }).optional(),
   attributes: z.record(z.string(), z.any()).optional(),
+  featuredAttributes: z.array(z.string()).optional(),
   media: z.record(z.string(), z.any()).optional(),
   socials: z.record(z.string(), z.string().url()).optional(),
   menuItems: z.array(menuItemSchema).optional(),
