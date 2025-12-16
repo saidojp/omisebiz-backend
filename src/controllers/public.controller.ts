@@ -17,6 +17,7 @@ export const getPublicRestaurants = async (req: Request, res: Response): Promise
       hours: true,
       priceRange: true,
       attributes: true,
+      featuredAttributes: true,
       media: true,
       socials: true,
       menuItems: true,
