@@ -7,53 +7,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Пример базовой модели - настройте под ваши нужды
 model User {
-  id        String   @id @default(cuid())
-  uniqueID  String   @unique
-  email     String   @unique
-  username  String   @unique        // non-null & unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String       @id @default(cuid())
+  uniqueID    String       @unique
+  email       String       @unique
+  username    String       @unique
+  password    String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   restaurants Restaurant[]
 }
 
 model Restaurant {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  name        String
-  description String?
-  category    String?
-  
-  // Contact Info
-  contacts    Json?    // { phone, email, website }
-  address     Json?    // { street, city, zip, country }
-  location    Json?    // { lat, lng }
-  
-  // Operations
-  hours       Json?    // { monday: { isOpen, open, close, breakStart, breakEnd }, ... }
-  priceRange  Json?    // { min: number, max: number, currency: "¥" }
-  
-  // Details
-  attributes  Json?    // { wifi, parking, etc }
-  featuredAttributes Json? // Array of strings keys to show on card
-  media       Json?    // { logo, cover, gallery: [] }
-  socials     Json?    // { instagram, facebook, etc }
-  
-  // Menu
-  menuItems    Json?   @db.JsonB  // Array of menu items
-  featuredDish Json?   @db.JsonB  // Featured/recommended dish
-  
-  // Meta
-  isPublished Boolean  @default(false)
-  
-  // Relations
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  name         String
+  description  String?
+  category     String?
+  contacts     Json?
+  address      Json?
+  location     Json?
+  hours        Json?
+  attributes   Json?
+  media        Json?
+  socials      Json?
+  isPublished  Boolean  @default(false)
+  userId       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  featuredDish Json?
+  menuItems    Json?
+  priceRange   Json?
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([isPublished])
