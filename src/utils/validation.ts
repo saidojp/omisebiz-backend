@@ -91,7 +91,7 @@ const featuredDishSchema = z.object({
   description: z.string().optional(),
   price: z.string().min(1, "Price is required"),
   imageUrl: z.string().url().optional().or(z.literal("")),
-}).optional();
+}).nullable().optional();
 
 export const createRestaurantSchema = z.object({
   name: z.string().min(1),

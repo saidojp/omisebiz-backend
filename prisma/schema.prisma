@@ -29,6 +29,7 @@ model Restaurant {
   location     Json?
   hours        Json?
   attributes   Json?
+  featuredAttributes Json?
   media        Json?
   socials      Json?
   isPublished  Boolean  @default(false)
