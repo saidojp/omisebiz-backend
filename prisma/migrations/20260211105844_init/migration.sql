@@ -22,14 +22,17 @@ CREATE TABLE "Restaurant" (
     "address" JSONB,
     "location" JSONB,
     "hours" JSONB,
-    "priceRange" TEXT,
     "attributes" JSONB,
+    "featuredAttributes" JSONB,
     "media" JSONB,
     "socials" JSONB,
     "isPublished" BOOLEAN NOT NULL DEFAULT false,
     "userId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "featuredDish" JSONB,
+    "menuItems" JSONB,
+    "priceRange" JSONB,
 
     CONSTRAINT "Restaurant_pkey" PRIMARY KEY ("id")
 );
