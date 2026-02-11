@@ -15,21 +15,21 @@ const generateSlug = async (name: string, excludeId?: string): Promise<string> =
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
-  
+
   let slug = baseSlug;
   let count = 1;
-  
+
   while (true) {
-    const existing = await prisma.restaurant.findUnique({ 
+    const existing = await prisma.restaurant.findUnique({
       where: { slug },
       select: { id: true }
     });
-    
+
     // If slug is not taken, or it's taken by the restaurant we're updating, use it
     if (!existing || existing.id === excludeId) {
       return slug;
     }
-    
+
     // Otherwise, try with a suffix
     slug = `${baseSlug}-${count}`;
     count++;
@@ -43,13 +43,14 @@ export const createRestaurant = async (
 ): Promise<void> => {
   try {
     if (!req.user) throw new AppError("Unauthorized", 401);
-    
+
     const payload: CreateRestaurantInput = validate(createRestaurantSchema, req.body);
     const slug = await generateSlug(payload.name);
 
     const restaurant = await prisma.restaurant.create({
       data: {
         ...payload,
+        featuredDish: payload.featuredDish === null ? Prisma.JsonNull : payload.featuredDish,
         slug,
         userId: req.user.id,
         isPublished: false,
@@ -111,7 +112,7 @@ export const updateRestaurant = async (
   try {
     if (!req.user) throw new AppError("Unauthorized", 401);
     const { id } = req.params;
-    
+
     const existing = await prisma.restaurant.findUnique({ where: { id } });
     if (!existing) throw new AppError("Restaurant not found", 404);
     if (existing.userId !== req.user.id) throw new AppError("Forbidden", 403);
